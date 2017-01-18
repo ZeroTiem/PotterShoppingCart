@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using PotterShoppingCart;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,21 @@ namespace PotterShoppingCart.Tests
     [TestClass()]
     public class ShoppingCartTests
     {
+        private List<DisCountRule> _disCountRule;
+
+        [TestInitialize]
+        public void disCountRuleAdd()
+        {
+            _disCountRule = new List<DisCountRule> {
+                new DisCountRule { name="哈利波特一集冊",kind="哈利波特",disQty=1,sale=1 },
+                new DisCountRule { name="哈利波特二集冊",kind="哈利波特",disQty=2,sale=0.95 },
+                new DisCountRule { name="哈利波特三集冊",kind="哈利波特",disQty=3,sale=0.9 },
+                new DisCountRule { name="哈利波特四集冊",kind="哈利波特",disQty=4,sale=0.8 },
+                new DisCountRule { name="哈利波特五集冊",kind="哈利波特",disQty=5,sale=0.75 },
+                new DisCountRule { name="冰與火之歌三集冊",kind="冰與火之歌",disQty=3,sale=0.5 }
+            };
+        }
+
         [TestMethod()]
         public void 第一集買了一本其他都沒買價格應為100元()
         {
@@ -19,8 +35,10 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 100;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
@@ -37,8 +55,10 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 190;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
@@ -56,8 +76,10 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 270;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
@@ -76,8 +98,10 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 320;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
@@ -97,8 +121,10 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 375;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
@@ -118,8 +144,10 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 370;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
@@ -137,15 +165,17 @@ namespace PotterShoppingCart.Tests
             };
 
             //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
             var expected = 460;
-            var shoppingcart = new ShoppingCart();
+            var shoppingcart = new ShoppingCart(rule);
             //Act
             var actual = shoppingcart.SumTotal(products);
             //Assert
             Assert.AreEqual(expected, actual);
         }
 
-        
+
 
 
 
