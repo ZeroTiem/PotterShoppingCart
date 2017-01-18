@@ -21,6 +21,13 @@ namespace PotterShoppingCart
             sumQty = products.Sum(x => x.qty);
             result = sumQty * 100;
 
+            result = DisCount(result, sumQty);
+
+            return (int)result;
+        }
+
+        private static double DisCount(double result, int sumQty)
+        {
             switch (sumQty)
             {
                 case 2:
@@ -29,9 +36,12 @@ namespace PotterShoppingCart
                 case 3:
                     result = result * 0.9;
                     break;
+                case 4:
+                    result = result * 0.8;
+                    break;
             }
 
-            return (int)result;
+            return result;
         }
     }
 
