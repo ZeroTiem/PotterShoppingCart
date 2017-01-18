@@ -39,6 +39,9 @@ namespace PotterShoppingCart
                 case 4:
                     result = result * 0.8;
                     break;
+                case 5:
+                    result = result * 0.75;
+                    break;
             }
 
             return result;
