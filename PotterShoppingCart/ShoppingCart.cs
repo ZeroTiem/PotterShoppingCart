@@ -16,20 +16,43 @@ namespace PotterShoppingCart
         public int SumTotal(IEnumerable<Product> products)
         {
             double result = 0;
-            int sumQty = 0;
 
-            sumQty = products.Sum(x => x.qty);
-            result = sumQty * 100;
+            while(products.Sum(x=>x.qty) > 0)
+            {
+                var DisSumPrice = 0;
+                var DisQty = 0;              
 
-            result = DisCount(result, sumQty);
+                //消去法掃描每列-1組成套書
+                foreach (var product in products)
+                {
+                    if (product.qty > 0)
+                    {
+                        product.qty--;//內容-1
+                        DisSumPrice += product.setPrice;//金額加總
+                        DisQty++;//計算套書數量+1
+                    }
+                }
+                result += DisCount(DisSumPrice, DisQty);
+            }
 
             return (int)result;
         }
 
-        private static double DisCount(double result, int sumQty)
+        /// <summary>
+        /// 計算套書折扣
+        /// </summary>
+        /// <param name="DisSumPrice">總金額</param>
+        /// <param name="sumQty">數量</param>
+        /// <returns></returns>
+        private static double DisCount(double DisSumPrice, int sumQty)
         {
+            double result = DisSumPrice;
+
             switch (sumQty)
             {
+                case 1:
+                    result = result * 1;
+                    break;
                 case 2:
                     result = result * 0.95;
                     break;
