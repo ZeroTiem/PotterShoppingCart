@@ -15,9 +15,20 @@ namespace PotterShoppingCart
         /// <returns></returns>
         public int SumTotal(IEnumerable<Product> products)
         {
-            int result = 0;
-            result = products.FirstOrDefault().qty * 100;
-            return result;
+            double result = 0;
+            int sumQty = 0;
+
+            sumQty = products.Sum(x => x.qty);
+            result = sumQty * 100;
+
+            switch (sumQty)
+            {
+                case 2:
+                    result = result * 0.95;
+                    break;
+            }
+
+            return (int)result;
         }
     }
 
