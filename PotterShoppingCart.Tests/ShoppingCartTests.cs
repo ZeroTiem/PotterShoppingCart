@@ -175,6 +175,31 @@ namespace PotterShoppingCart.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod()]
+        public void 第一集買了一本第二三集各買了兩本每本價格100元一二三集為一套得到折扣9折二三集為一套得到折扣95折冰與火之歌一二三集各買一本折扣5折總金額為610元()
+        {
+            IEnumerable<Product> products = new List<Product>
+            {
+                new Product { name="哈利波特第一集",kind="哈利波特",epiSode="1",setPrice=100,qty=1 },
+                new Product { name="哈利波特第二集",kind="哈利波特",epiSode="2",setPrice=100,qty=2 },
+                new Product { name="哈利波特第三集",kind="哈利波特",epiSode="3",setPrice=100,qty=2 },
+                new Product { name="冰與火之歌一集",kind="冰與火之歌",epiSode="1",setPrice=100,qty=1 },
+                new Product { name="冰與火之歌二集",kind="冰與火之歌",epiSode="2",setPrice=100,qty=1 },
+                new Product { name="冰與火之歌三集",kind="冰與火之歌",epiSode="3",setPrice=100,qty=1 }
+            };
+
+            //Arrange
+            IRule rule = Substitute.For<IRule>();
+            rule.GetKindRule().Returns(_disCountRule);
+            var expected = 610;
+            var shoppingcart = new ShoppingCart(rule);
+            //Act
+            var actual = shoppingcart.SumTotal(products);
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+
 
 
 
