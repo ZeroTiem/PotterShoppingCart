@@ -26,6 +26,9 @@ namespace PotterShoppingCart
                 case 2:
                     result = result * 0.95;
                     break;
+                case 3:
+                    result = result * 0.9;
+                    break;
             }
 
             return (int)result;
