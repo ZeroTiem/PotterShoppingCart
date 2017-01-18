@@ -8,9 +8,15 @@ namespace PotterShoppingCart
 {
     public class ShoppingCart
     {
+        /// <summary>
+        /// 購物車計價總額
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns></returns>
         public int SumTotal(IEnumerable<Product> products)
         {
             int result = 0;
+            result = products.FirstOrDefault().qty * 100;
             return result;
         }
     }
@@ -33,7 +39,9 @@ namespace PotterShoppingCart
         /// 價格
         /// </summary>
         public int setPrice { get; set; }
-        
+        /// <summary>
+        /// 數量
+        /// </summary>
         public int qty { get; set; }
     }
 }
